@@ -5,31 +5,6 @@ const tokenService = require('../services/token.service.js');
 const config = require('../config/config.js')
 const allRoles = require('../config/roles.js')
 
-const passport = async (req, res,next)=>{
-    const token = req.cookies.token;
-    try{
-        const payload = await Token.generatePayload(token);
-        const results = await AuthService.AuthByUsernameUserId(payload.username,payload.id);
-        res.user_id = payload.id;
-        return results
-    }catch{
-        next(new ApiError(401,'Unauthorized'));
-    }
-}
-const auth = (role) => async (req, res, next) => {
-    return Promise.resolve(passport(req,res,next))
-        .then((results)=>{
-            if(results){
-                if(allRoles[role].includes(results.role)){    
-                    next();
-                }else{
-                    next(new ApiError(403,'Forbidden'));
-                }
-            }else{
-                next(new ApiError(401,'Unauthorized'));
-            }
-        });
-};
 const register = catchAsync(async (req,res)=>{
     const user = await AuthService.createUser(req.body);
     const tokens = await tokenService.generateAuthTokens(user.user_id);
@@ -51,7 +26,6 @@ const refreshToken = catchAsync(async (req,res)=>{
 })
 module.exports = {
     login,
-    auth,
     register,
     login,
     logout,

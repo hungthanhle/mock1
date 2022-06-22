@@ -27,7 +27,7 @@ const saveToken = async (token, user_id, type) => {
     });
     return tokenDoc;
 };
-const generateAuthTokens = (user_id)=>{
+const generateAuthTokens = async (user_id)=>{
     const accessToken = generateToken(user_id,tokens.ACCESS);
     const refreshToken = generateToken(user_id,tokens.REFRESH);
     await saveToken(refreshToken,user_id,tokens.REFRESH);
@@ -36,7 +36,7 @@ const generateAuthTokens = (user_id)=>{
         refreshToken,
     }
 }
-const verifyToken = (token, type)=>{
+const verifyToken = async (token, type)=>{
     const payload = jwt.verify(token, config.jwt.secret);
     const tokenDoc = await Token.findOne({where:{token:refreshToken,user_id:payload.user_id,type:tokens.REFRESH}});
     if(!tokenDoc){

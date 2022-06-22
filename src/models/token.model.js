@@ -6,10 +6,10 @@ const pool = new Sequelize(sequelize.database, sequelize.username, sequelize.pas
 });
 var schemaName ='mock';
 const TokenTableName = 'token';
-const tokenSchema = pool.define(
+const Token = pool.define('token',
   {
     token: {
-      type: String,
+      type: DataTypes.STRING,
       required: true,
       index: true,
     },
@@ -27,6 +27,6 @@ const tokenSchema = pool.define(
   }
 );
 
-tokenSchema.sync();
+Token.sync();
 
 module.exports = Token;
