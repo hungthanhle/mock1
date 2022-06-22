@@ -28,6 +28,8 @@ module.exports = router;
  *   get:
  *     tags: [De]
  *     description: Admin gets all tests and teacher in storage.
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -40,6 +42,8 @@ module.exports = router;
  *   post:
  *     tags: [De]
  *     description: Admin adds test and questions.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -80,6 +84,8 @@ module.exports = router;
  *   get:
  *     tags: [De]
  *     description: Get test and questions by test number.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -100,6 +106,8 @@ module.exports = router;
  *   put:
  *     tags: [De]
  *     description: Admin updates test and questions by test number.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -148,6 +156,8 @@ module.exports = router;
  *   delete:
  *     tags: [De]
  *     description: Admin deletes test and questions by test number.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

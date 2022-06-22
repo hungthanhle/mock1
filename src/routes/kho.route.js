@@ -28,6 +28,8 @@ module.exports = router;
  *   get:
  *     tags: [Kho]
  *     description: Admin gets all questions and answers in storage.
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: OK
@@ -40,6 +42,8 @@ module.exports = router;
  *   post:
  *     tags: [Kho]
  *     description: Admin adds question and answers.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -77,6 +81,8 @@ module.exports = router;
  *   get:
  *     tags: [Kho]
  *     description: Get question and answers by question id.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -97,6 +103,8 @@ module.exports = router;
  *   put:
  *     tags: [Kho]
  *     description: Admin updates question and answers by question id.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -142,6 +150,8 @@ module.exports = router;
  *   delete:
  *     tags: [Kho]
  *     description: Admin deletes question and answers by question id.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

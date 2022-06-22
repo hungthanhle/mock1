@@ -26,6 +26,8 @@ module.exports = router;
  *   get:
  *     tags: [Bailam]
  *     description: Admin gets all tests from students by test number.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: de
@@ -50,6 +52,8 @@ module.exports = router;
  *   get:
  *     tags: [Bailam]
  *     description: Get test by test number from student by student id.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -77,6 +81,8 @@ module.exports = router;
  *   post:
  *     tags: [Bailam]
  *     description: Student send test and questions by student id.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -122,6 +128,8 @@ module.exports = router;
  *   delete:
  *     tags: [Bailam]
  *     description: Admin deletes student's test by student id test number.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
