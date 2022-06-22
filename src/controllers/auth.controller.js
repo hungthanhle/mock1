@@ -7,14 +7,14 @@ const allRoles = require('../config/roles.js')
 
 const register = catchAsync(async (req,res)=>{
     const user = await AuthService.createUser(req.body);
-    const tokens = await tokenService.generateAuthTokens(user.user_id);
+    const tokens = await tokenService.generateAuthTokens(user);
     res.status(200).json({message:`Dang ky thanh cong: ${user.user_name}`,tokens:tokens});
 });
 const login = catchAsync(async (req,res)=>{
     let { username,password } = req.body;
     const user = await AuthService.AuthByUsernamePassword(username,password);
-    const tokens = await tokenService.generateAuthTokens(user.user_id);
-    res.status(200).json({message:`Dang nhap thanh cong: ${user.user_name}`,tokens:tokens});
+    const tokens = await tokenService.generateAuthTokens(user);
+    res.status(200).json({message:`Dang nhap thanh cong: ${user.user_id}`,tokens:tokens});
 });
 const logout = catchAsync(async (req,res)=>{
     await AuthService.log(req.body.refreshToken);

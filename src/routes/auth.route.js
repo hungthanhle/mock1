@@ -40,4 +40,30 @@ module.exports = router;
  *         description: OK
  *       "404":
  *         description: Not Found
+ * /register:
+ *   post:
+ *     description: Register account.
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *             example:
+ *               username: 'hungadmin1'
+ *               password: '1234'
+ *               role: 'admin'
+ *     responses:
+ *       "200":
+ *         description: OK
+ *       "404":
+ *         description: Not Found
  */

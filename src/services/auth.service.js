@@ -22,7 +22,7 @@ const createUser = async (updateBody)=>{
     const {username,password,role} = updateBody;
     const exist = await AuthModel.findOne({where:{user_name:username}})
     const results = await AuthModel.create({user_name:username,password:password,role:role});
-    if(!exist){
+    if(exist){
         throw new ApiError(400,'Bad request');
     }
     return results

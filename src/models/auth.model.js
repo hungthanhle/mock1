@@ -10,6 +10,7 @@ const User = pool.define('users', {
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        autoIncrement:true,
         primaryKey: true,
     },
     user_name: {

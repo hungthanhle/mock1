@@ -27,10 +27,10 @@ const saveToken = async (token, user_id, type) => {
     });
     return tokenDoc;
 };
-const generateAuthTokens = async (user_id)=>{
-    const accessToken = generateToken(user_id,tokens.ACCESS);
-    const refreshToken = generateToken(user_id,tokens.REFRESH);
-    await saveToken(refreshToken,user_id,tokens.REFRESH);
+const generateAuthTokens = async (user)=>{
+    const accessToken = generateToken(user.user_id,tokens.ACCESS);
+    const refreshToken = generateToken(user.user_id,tokens.REFRESH);
+    await saveToken(refreshToken,user.user_id,tokens.REFRESH);
     return {
         accessToken,
         refreshToken,
