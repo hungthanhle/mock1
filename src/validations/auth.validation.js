@@ -59,6 +59,16 @@ const register = {
         role: Joi.string().required(),
     })
 }
+const logout = {
+    body: Joi.object().keys({
+        refreshToken: Joi.string().required(),
+    })
+} 
+const refreshToken = {
+    body: Joi.object().keys({
+        refreshToken: Joi.string().required(),
+    })
+}
 module.exports = {
   login,
   addbailamById,
@@ -67,4 +77,6 @@ module.exports = {
   adddeAdmin,
   updatedeById,
   register,
+  logout,
+  refreshToken,
 };

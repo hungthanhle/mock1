@@ -1,10 +1,10 @@
 const AuthModel = require('../models/auth.model.js');
 const ApiError = require('../utils/ApiError');
-const tokens = require('../config/tokens.js');
+const tokenTypes = require('../config/tokens.js');
 const Token = require('../models/token.model.js');
 const tokenService = require('../services/token.service.js');
 
-const AuthByUsernamePassword = async (username,password)=>{
+const LoginByUsernamePassword = async (username,password)=>{
     const results = await AuthModel.findOne({where:{user_name:username,password:password}});
     if(!results){
         throw new ApiError(404,'Invalid username or password');
@@ -20,32 +20,31 @@ const AuthByUserId = async (id)=>{
 };
 const createUser = async (updateBody)=>{
     const {username,password,role} = updateBody;
-    const exist = await AuthModel.findOne({where:{user_name:username}})
-    const results = await AuthModel.create({user_name:username,password:password,role:role});
-    if(!exist){
+    const exist = await AuthModel.findOne({where:{user_name:username}});
+    if(exist){
         throw new ApiError(400,'Bad request');
     }
-    return results
+    return AuthModel.create({user_name:username,password:password,role:role});
 }
 const logout = async (refreshToken)=>{
-    const refreshTokenDoc = await Token.findOne({where:{token:refreshToken,type:tokens.REFRESH}});
+    const refreshTokenDoc = await Token.findOne({where:{token:refreshToken,type:tokenTypes.REFRESH}});
     if(!refreshTokenDoc){
         throw new ApiError(404,'Not found');
     }
-    await refreshTokenDoc.remove();
+    await refreshTokenDoc.destroy();
 };
 const refreshAuth = async (refreshToken)=>{
     try{
-        const refreshTokenDoc = await tokenService.verifyToken(refreshToken,tokens.REFRESH);
-        const user = AuthByUserId(refreshToken.user_id);
-        await refreshTokenDoc.remove();
-        return tokenService.generateAuthTokens(user.user_id);
+        const refreshTokenDoc = await tokenService.verifyToken(refreshToken,tokenTypes.REFRESH);
+        const user = AuthByUserId(refreshTokenDoc.user_id);
+        await refreshTokenDoc.destroy();
+        return tokenService.generateAuthTokens(user);
     }catch{
         throw new ApiError(401,'Unauthorized');
     }
 };
 module.exports = {
-    AuthByUsernamePassword,
+    LoginByUsernamePassword,
     AuthByUserId,
     createUser,
     logout,

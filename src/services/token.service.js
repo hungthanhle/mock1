@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js');
-const tokens = require('../config/tokens.js');
+const tokenTypes = require('../config/tokens.js');
 const Token = require('../models/token.model.js');
 
 const generateToken = (user_id, type, secret = config.jwt.secret) => {
@@ -10,15 +10,6 @@ const generateToken = (user_id, type, secret = config.jwt.secret) => {
     };
     return jwt.sign(payload, secret);
 };
-
-const generatePayload = async (token) => {
-    const payload = jwt.verify(token, config.jwt.secret);
-    if (!payload) {
-      throw new Error('Khong hop le');
-    }
-    return payload;
-};
-
 const saveToken = async (token, user_id, type) => {
     const tokenDoc = await Token.create({
       token,
@@ -27,18 +18,19 @@ const saveToken = async (token, user_id, type) => {
     });
     return tokenDoc;
 };
-const generateAuthTokens = (user_id)=>{
-    const accessToken = generateToken(user_id,tokens.ACCESS);
-    const refreshToken = generateToken(user_id,tokens.REFRESH);
-    await saveToken(refreshToken,user_id,tokens.REFRESH);
+const generateAuthTokens = async (user)=>{
+    console.log("huhuhu");
+    const accessToken = generateToken(user.user_id,tokenTypes.ACCESS);
+    const refreshToken = generateToken(user.user_id,tokenTypes.REFRESH);
+    await saveToken(refreshToken,user.user_id,tokenTypes.REFRESH);
     return {
         accessToken,
         refreshToken,
     }
 }
-const verifyToken = (token, type)=>{
+const verifyToken = async (token, type)=>{
     const payload = jwt.verify(token, config.jwt.secret);
-    const tokenDoc = await Token.findOne({where:{token:refreshToken,user_id:payload.user_id,type:tokens.REFRESH}});
+    const tokenDoc = await Token.findOne({where:{token,type,user_id:payload.user_id,type:tokenTypes.REFRESH}});
     if(!tokenDoc){
         throw new Error('Token not found');
     }
@@ -46,7 +38,6 @@ const verifyToken = (token, type)=>{
 }
 module.exports = {
     generateToken,
-    generatePayload,
     generateAuthTokens,
     saveToken,
     verifyToken,
