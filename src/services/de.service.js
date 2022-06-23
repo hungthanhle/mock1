@@ -52,8 +52,13 @@ const updatedeByIdAdmin = async (id,updateBody,created_de_id)=>{
         throw new ApiError(400,'Bad request');
     }
 };
-const getAlldeAdmin = async ()=>{
-    const results = await de.findAll();
+const getAlldeAdmin = async (filter,options)=>{
+    const {create_id} = filter;
+    const {limit,page} = options;
+    const results = await de.findAndCountAll({
+        limit,
+        offset: (page - 1)*limit
+    });
     return results;
 };
 const deletedeByIdAdmin = async (de_so)=>{

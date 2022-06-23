@@ -107,7 +107,9 @@ VALUES
 INSERT INTO mock.de(mo_ta_de,created_id,time_start,time_end)
 VALUES
 	('Kiểm tra 15 phút, môn Toán',2,'2016-07-07 17:01:18.410677','2016-07-07 17:44:18.410677'),
-	('Kiểm tra 45 phút, môn Toán Hình học',2,'2016-07-07 17:01:18.410677','2016-07-07 17:44:18.410677');
+	('Kiểm tra 45 phút, môn Toán Hình học',2,'2016-07-07 17:01:18.410677','2016-07-07 17:44:18.410677'),
+	('Kiểm tra 45 phút, môn Toán Đại số',4,'2016-07-07 17:01:18.410677','2016-07-07 17:44:18.410677'),
+	('Kiểm tra 15 phút, môn Toán Đại số',4,'2016-07-07 17:01:18.410677','2016-07-07 17:44:18.410677');
 
 INSERT INTO mock.quest_thongke(de_so,quest_kho_id)
 VALUES
