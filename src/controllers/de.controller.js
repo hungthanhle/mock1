@@ -1,9 +1,12 @@
 const { deService } = require('../services');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
+const pick = require('../utils/pick');
 
 const getAlldeAdmin = catchAsync(async (req,res)=>{
-    const results = await deService.getAlldeAdmin();
+    const filter = pick(req.query, ['create_id']);
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const results = await deService.getAlldeAdmin(filter,options);
     res.status(200).json(results);
 });
 const getdeById = catchAsync(async (req,res)=>{

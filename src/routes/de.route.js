@@ -30,6 +30,31 @@ module.exports = router;
  *     description: Admin gets all tests and teacher in storage.
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: created_id
+ *         schema:
+ *           type: number
+ *         description: Nguoi tao de
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *         description: sort by query in the form of field:desc/asc (ex. de_so:asc)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         default: 2
+ *         description: Maximum number of de
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number
  *     responses:
  *       "200":
  *         description: OK
